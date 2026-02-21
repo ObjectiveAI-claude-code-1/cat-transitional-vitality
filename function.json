@@ -1,0 +1,93 @@
+{
+  "type": "vector.function",
+  "output_length": {
+    "$starlark": "len(input)"
+  },
+  "input_split": {
+    "$starlark": "[[item] for item in input]"
+  },
+  "input_merge": {
+    "$starlark": "[item for sublist in input for item in sublist]"
+  },
+  "input_schema": {
+    "type": "array",
+    "description": "A collection of cat images to rank by transitional vitality — the degree to which each cat is captured in a state of becoming rather than a settled state of being.",
+    "minItems": 2,
+    "items": {
+      "type": "image",
+      "description": "A photograph of a cat to evaluate for kinetic imprint, emotional flux, and narrative tension."
+    }
+  },
+  "tasks": [
+    {
+      "type": "vector.completion",
+      "messages": [
+        {
+          "role": "user",
+          "content": [
+            {
+              "type": "text",
+              "text": "Show me a photograph of a cat whose body is caught in the act of moving between physical positions. I want to see a body that is visibly between two states — not settled at rest and not in steady uniform motion, but mid-transition. The kind of posture that exists only as a waypoint: weight distributed unevenly, limbs mid-reach, spine beyond its resting curvature, asymmetry born from movement rather than pose. Show me a body that communicates passage, not permanence."
+            }
+          ]
+        }
+      ],
+      "responses": {
+        "$jmespath": "input[*].[@]"
+      },
+      "output": {
+        "$jmespath": "output.scores"
+      }
+    },
+    {
+      "type": "vector.completion",
+      "messages": [
+        {
+          "role": "system",
+          "content": [
+            {
+              "type": "text",
+              "text": "You are a curator specializing in cat photography that captures emotional and attentional transitions — the visible moment between one internal state and another, where competing feelings coexist in a single expression."
+            }
+          ]
+        },
+        {
+          "role": "user",
+          "content": [
+            {
+              "type": "text",
+              "text": "Show me a cat photograph where the face, eyes, and ears reveal an internal state that is actively shifting. I want to see two emotions or attentional states competing in the same moment — awareness flooding into a waking face, playfulness freezing into uncertainty, aloofness softening into affection, or curiosity igniting before the body has caught up. Not a single settled expression, but the space between two."
+            }
+          ]
+        }
+      ],
+      "responses": {
+        "$jmespath": "input[*].[@]"
+      },
+      "output": {
+        "$jmespath": "output.scores"
+      }
+    },
+    {
+      "type": "vector.completion",
+      "messages": [
+        {
+          "role": "user",
+          "content": [
+            {
+              "type": "text",
+              "text": "I collect cat photographs that feel like a single frame pulled from a continuous, unfolding story. The best ones make you sense what the cat was doing a moment before and what it is about to do next — the image vibrates with implied before-and-after. A cat on the edge of a surface about to leap, a cat in a doorway between rooms, a cat whose gaze has just locked onto something beyond the frame. Show me the photograph where the moment is most clearly in transit, where the composition itself refuses to let time stand still."
+            }
+          ]
+        }
+      ],
+      "responses": {
+        "$jmespath": "input[*].[@]"
+      },
+      "output": {
+        "$jmespath": "output.scores"
+      }
+    }
+  ],
+  "description": "Ranks cat photographs by transitional vitality — how vividly each image captures a cat between states rather than settled in one. Evaluates kinetic imprint (body mid-motion), emotional flux (shifting internal state), and narrative tension (implied before-and-after) to surface images that pulse with the energy of a moment in progress."
+}
